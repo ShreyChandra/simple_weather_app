@@ -7,8 +7,8 @@ window.addEventListener('load', ()=> {
     let weatherIcon = document.querySelector('icon');
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(pos => {  
-            long = 138.5406;//pos.coords.longitude;
-            lat = -34.8864;//pos.coords.latitude;
+            long = pos.coords.longitude;
+            lat = pos.coords.latitude;
         
             const proxy = 'https://cors-anywhere.herokuapp.com/';
             const api = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=47f166773e351368285402b79068ea73&units=metric`;
@@ -21,13 +21,12 @@ window.addEventListener('load', ()=> {
                     console.log(data);
                     var temp = data['main']['temp'];
                     var tempdes = data['weather'][0]['description'];
-                    tempdes = "mist";
                     var country = data['sys']['country'];
                     var area = data['name'];
                     var iconid = data['weather'][0]['icon'];
                     var newicon = 'http://openweathermap.org/img/wn/'+iconid+'@2x.png';
 
-                //Set DOM elements
+                    //Set DOM elements
                     temperatureDegree.textContent = temp;
                     temperatureDescription.textContent = tempdes;
                     locationTimezone.textContent = country + " - " + area;
@@ -89,13 +88,5 @@ window.addEventListener('load', ()=> {
  
     //     document.getElementById("x").src=newUrl;
      
-    // } 
-    // else{
-    //     h1.textContext = "Permission required";
-    // }
 
-    // function setIcons(icon,iconID){
-    //     const skycons = new skycons({color:"white"});
-    //     const  
-    // }
 });
