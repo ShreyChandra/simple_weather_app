@@ -13,13 +13,14 @@ body {
     flex-direction: column;
     align-items: center;
     background: linear-gradient(rgb(47,150,163),rgb(48,62,143));
+    background: linear-gradient(rgb(63, 80, 236),rgb(14, 34, 145))     ;
     font-family: sans-serif;
     color: white;
 }
 
 .location, .temperature {
     height: 30vh;
-    width: 50%;
+    width: 70%;
     display: flex;
     justify-content: space-around;
     align-items:center;
@@ -28,6 +29,7 @@ body {
 
 .temperature{
     flex-directions: column;
+    
 }
 
 .degree-section{
@@ -36,12 +38,25 @@ body {
     cursor: pointer;
 }
 
-.degree-section span{
+.location-timezone {
+    font-size: 75px;
+}
+
+
+#cel {
     margin: 10px;
-    font-size: 30 px;
+    font-size: 50px;
 }
 
 .degree-section h2 {
-    font-size: 40px;
+    font-size: 50px;
 
 }
+
+.temperature-description{
+    font-size: 40px;
+}
+/* .degree-section span{
+    margin: 10px;
+    font-size: 50 px;
+} */

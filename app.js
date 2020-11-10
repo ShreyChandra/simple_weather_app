@@ -7,14 +7,31 @@ window.addEventListener('load', ()=> {
     let weatherIcon = document.querySelector('icon');
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(pos => {  
-            long = pos.coords.longitude;
-            lat = pos.coords.latitude;
+            long = pos.coords.longitude; //80.972968;
+            lat = pos.coords.latitude; //26.878154;
         
             const proxy = 'https://cors-anywhere.herokuapp.com/';
             const api = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=47f166773e351368285402b79068ea73&units=metric`;
             console.log(api);
+            
+            //Toggle temp C <-> F
+            document.addEventListener("click", () => {
+                    if(document.getElementById("cel").innerText == "℃"){
+                        document.getElementById("cel").innerHTML = "F"; 
+                        var localtemp= document.getElementById("temp").innerText;
+                        var newtemp = Math.ceil((localtemp * 9/5) + 32);
+                        document.getElementById("temp").innerText = newtemp;
+                    }else if (document.getElementById("cel").innerText == "F"){
+                        var localtemp= document.getElementById("temp").innerText;
+                        var newtemp = Math.ceil((localtemp - 32) * 5/9); 
+                        // temperatureDegree.textContent = newtemp;
+                        document.getElementById("temp").innerText = newtemp;
+                        document.getElementById("cel").innerHTML = "℃"; 
+                    }
+                });
 
-        
+
+            //Fetching weather data from Openweathermap api
             fetch(api)
                 .then(response => response.json())   
                 .then(data => {
@@ -24,10 +41,11 @@ window.addEventListener('load', ()=> {
                     var country = data['sys']['country'];
                     var area = data['name'];
                     var iconid = data['weather'][0]['icon'];
-                    var newicon = 'http://openweathermap.org/img/wn/'+iconid+'@2x.png';
+                    // var newicon = 'http://openweathermap.org/img/wn/'+iconid+'@2x.png';
+                    // tempdes = 'mist'; for test
 
                     //Set DOM elements
-                    temperatureDegree.textContent = temp;
+                    temperatureDegree.textContent = Math.ceil(temp);
                     temperatureDescription.textContent = tempdes;
                     locationTimezone.textContent = country + " - " + area;
                     // ReplacingImage(newicon);
@@ -49,7 +67,7 @@ window.addEventListener('load', ()=> {
                         icon = "PARTLY_CLOUDY_NIGHT";
                     }else if(tempdes == "scattered clouds"){
                         icon = "CLOUDY";
-                    }else if(tempdes == "shower rain" || tempdes == "rain"){
+                    }else if(tempdes == "shower rain" || tempdes == "rain" || tempdes == "moderate rain"){
                         icon = "RAIN";
                     }else if(tempdes == "thunderstorm"){
                         icon = "WIND";
@@ -62,7 +80,7 @@ window.addEventListener('load', ()=> {
                         icon = "FOG";
                         document.body.style.background = "rgb(194, 204, 120)";
                     }
-                    // var icon = "PARTLY_CLOUDY_DAY";
+                    // calling function to display animated weather icon
                     setIcons(icon, document.querySelector(".icon"));
                     
                     
